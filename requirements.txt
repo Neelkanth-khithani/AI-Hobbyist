@@ -1,0 +1,13 @@
+huggingface_hub
+nltk
+pandas
+matplotlib
+seaborn
+requests
+wordcloud
+numpy
+requests
+transformers
+sentence-transformers
+PyMuPDF
+torch

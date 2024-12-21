@@ -1,0 +1,10 @@
+config.py
+
+myenv/
+.myenv/
+
+__pycache__/
+*.pyc
+*.pyo
+
+models
