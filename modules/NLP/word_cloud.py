@@ -19,6 +19,5 @@ def bag_of_words_menu(word_count):
 
     generate_word_cloud(text_data)
 
-    print("Bag of Words Menu:")
     for idx, word in enumerate(word_count.keys(), 1):
         print(f"{idx}. {word}")

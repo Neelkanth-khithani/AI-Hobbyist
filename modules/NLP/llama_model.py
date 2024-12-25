@@ -3,10 +3,10 @@ from config import HUGGINGFACE_API_KEY
 
 client = InferenceClient(api_key=HUGGINGFACE_API_KEY)
 
-def ai_generate_problem_statement(chosen_keywords):
+def ai_generate_problem_statement(chosen_keywords, task):
     prompt = (
         f"Generate a single 100-word problem statement based on the following keywords: {', '.join(chosen_keywords)}. "
-        f"It should begin with one of the following terms: 'To classify', 'To regress'"
+        f"It should begin with one of the following terms: 'To classify', 'To regress' based on the task {task}. "
         f"Ensure the statement is clear, concise, and relevant to current industry or societal needs. "
         f"Be sure to use formal, professional language in your response. JUST GENERATE THE PROBLEM STATEMENT!"
     )

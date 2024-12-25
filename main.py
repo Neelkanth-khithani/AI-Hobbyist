@@ -14,32 +14,32 @@ from modules.RAG.pdf_process import extract_text_from_pdf
 from modules.RAG.embeddings import generate_embeddings
 from modules.RAG.doc_retrieval import retrieve_top_k_documents
 from modules.RAG.rag_model import generate_answer
+from modules.MTR.pycaret_visual import classification, Regression
 
 def get_choice():
     print("\n=== Welcome to AI-Hobbyist ===\n")
-    print("1. Do you have a story, or would you like to explore news?")
-    print("   a. I have a story.")
-    print("   b. I want to check the news.")
-    print("   c. I want to upload a document.")
+    print("For your idea generation, do you:")
+    print("   a. Have a story,")
+    print("   b. Want to check the news,")
+    print("   c. Want to upload a document?")
     return input("Enter your choice (a/b/c): ").strip().lower()
 
-
 def handle_story():
-    story = input("Enter your story: ").strip()
+    story = input("Unveil your story to us: ").strip()
     cleaned_story = clean(story)
-    print("\nGenerating Bag of Words from your story...")
+    print("\nCrafting the Bag of Words from your story...")
     words = extract_pos(cleaned_story, pos_types=("NN", "JJ"))
     word_count = {word: cleaned_story.split().count(word) for word in words}
     bag_of_words_menu(word_count)
-
+    return word_count
 
 def handle_news():
-    print("Fetching sustainability-related news...\n")
+    print("\nGathering the latest sustainability news for you...\n")
     news_list = fetch_sustainability_news()
     if not news_list:
         print("No news available at the moment. Please try again later.")
         return
-    print("Select a news article to analyze:")
+    print("\nSelect a news article:")
     for idx, (title, description) in enumerate(news_list, 1):
         print(f"{idx}. {title}")
     try:
@@ -52,14 +52,14 @@ def handle_news():
         return
     selected_news = news_list[news_choice - 1][1]
     cleaned_news = clean(selected_news)
-    print("\nGenerating Bag of Words from the selected news...")
+    print("\nTransforming the selected news into a rich Bag of Words...")
     words = extract_pos(cleaned_news, pos_types=("NN", "JJ"))
     word_count = {word: cleaned_news.split().count(word) for word in words}
     bag_of_words_menu(word_count)
-
+    return word_count
 
 def handle_document():
-    print("Please upload your document (PDF file):")
+    print("\nPlease upload your document (PDF file):")
     pdf_file = input("Enter the file path: ").strip()
     try:
         document_text = extract_text_from_pdf(pdf_file)
@@ -77,7 +77,7 @@ def handle_document():
         bag_of_words_menu(word_count)
     except Exception as e:
         print(f"Error in document processing: {e}")
-
+    return word_count
 
 def select_task():
     while True:
@@ -92,29 +92,28 @@ def select_task():
         else:
             print("Invalid choice. Please select 1 or 2.")
 
-
 def select_keywords(word_count):
-    selected_words = input(
-        "Enter the numbers corresponding to the keywords you want to use (comma-separated): "
-    ).strip()
-    return [
-        word
-        for idx, word in enumerate(word_count.keys(), 1)
-        if str(idx) in selected_words.split(",")
-    ]
-
+    try:
+        selected_words = input("Enter the words (numbers) you want to include in your problem statement: ").strip()
+        selected_indices = list(map(int, selected_words.split(",")))
+        selected = [word for idx, word in enumerate(word_count.keys(), start=1) if idx in selected_indices]
+        return selected
+    except ValueError:
+        print("Invalid input for keywords. Please use comma-separated numbers corresponding to the indices.")
+        return []
 
 def generate_problem_statement_choice(selected_keywords, task):
     print("\nHow would you like to generate the problem statement?")
     print("a. Normal NLG")
-    print("b. AI-Generated (LLaMA Model)")
+    print("b. AI-Generated")
     ps_choice = input("Enter your choice (a/b): ").strip().lower()
+
     if ps_choice == "a":
         problem_statement = generate_problem_statement(selected_keywords, task)
         print("\nGenerated Problem Statement:")
         print(problem_statement)
     elif ps_choice == "b":
-        problem_statement = ai_generate_problem_statement(selected_keywords)
+        problem_statement = ai_generate_problem_statement(selected_keywords, task)
         print("\nGenerated AI Problem Statement:")
         print(problem_statement)
     else:
@@ -129,17 +128,38 @@ def load_dataset(task):
     dataset_file = dataset_files[task]
     try:
         df = pd.read_csv(dataset_file)
-        print(f"\nLoaded dataset for {task}: {dataset_file}")
+        print("\nHere is the dataset based on the problem statement for analysis:")
+        print("\n*Please observe it carefully*\n")
         print(df.head())
         return df
     except FileNotFoundError:
         print(f"Dataset file for {task} not found. Exiting program.")
         return None
 
+def perform_eda_or_train_model(task):
+    task_name = "classification" if task == "classify" else "regression"  # Determine the task name
+    
+    choice = input(f"\nWould you like to perform EDA with the pre-made dataset or train a model with your own dataset based on *{task_name}*?\nEnter 'EDA' for EDA or 'train' to train a model: ").strip().lower()
+
+    if choice == 'eda':
+        df = load_dataset(task)
+        if df is None:
+            return
+        perform_eda(df, task)
+    elif choice == 'train':
+        dataset_path = input("Enter the path to your dataset: ").strip()
+        target = input("Enter the target variable: ").strip()
+
+        if task == "classify":
+            classification(dataset_path, target)
+        elif task == "regress":
+            Regression(dataset_path, target)
+    else:
+        print("Invalid choice. Exiting program.")
 
 def perform_eda(df, task):
     while True:
-        print("\nWhat analysis would you like to perform?")
+        print("\nBased on your observation, what analysis would you like to perform?")
         print("1. Classification Analysis")
         print("2. Regression Analysis")
         analysis_choice = input("Enter your choice (1/2): ").strip()
@@ -161,36 +181,37 @@ def perform_eda(df, task):
         else:
             print("Incorrect analysis choice for the task. Please try again.")
 
-
 def main():
-
     download_nltk_resources()
 
     choice = get_choice()
+    word_count = {}
 
     if choice == "a":
-        handle_story()
+        word_count = handle_story()
     elif choice == "b":
-        handle_news()
+        word_count = handle_news()
     elif choice == "c":
-        handle_document()
+        word_count = handle_document()
     else:
         print("Invalid choice. Exiting program.")
         return
 
-    task = select_task()
+    if not word_count:
+        print("No keywords generated. Exiting program.")
+        return
 
-    word_count = {}  
+    task = select_task()
+    
     selected_keywords = select_keywords(word_count)
+
+    if not selected_keywords:
+        print("No keywords selected. Exiting program.")
+        return
 
     generate_problem_statement_choice(selected_keywords, task)
 
-    df = load_dataset(task)
-    if df is None:
-        return
-
-    perform_eda(df, task)
-
+    perform_eda_or_train_model(task)
 
 if __name__ == "__main__":
     main()

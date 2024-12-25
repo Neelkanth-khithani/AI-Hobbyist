@@ -11,3 +11,4 @@ transformers
 sentence-transformers
 PyMuPDF
 torch
+pycaret
