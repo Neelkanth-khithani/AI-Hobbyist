@@ -6,7 +6,9 @@ client = InferenceClient(api_key=HUGGINGFACE_API_KEY)
 def generate_answer(retrieved_text, model_name="meta-llama/Llama-3.2-3B-Instruct", max_length=150):
 
     prompt = (
-        f"Using the following document, summarize it in 100 words:\n\n"
+        f"Analyze the following document and extract key problematic terms only."
+        f"These terms should highlight issues or challenges (e.g., plastic, garbage, pollution, deforestation, climate change) related to sustainability."
+        f"Focus on words that can form the basis of a meaningful problem statement.\n\n"
         f"Document: {retrieved_text}\n\n"
         f"Answer:"
     )

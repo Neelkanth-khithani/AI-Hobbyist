@@ -7,4 +7,8 @@ __pycache__/
 *.pyc
 *.pyo
 
-models
+models/
+
+modules\RAG\rag_model.py
+
+modules\NLP\llama_model.py

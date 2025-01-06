@@ -1,0 +1,101 @@
+ID,Category,Indicator,Value,Unit,Year,Region
+1,Water,Vehicle Emissions,356.22,%,Unknown,West
+2,Energy,PM2.5 Levels,44.82,kg,2020,East
+3,Air Quality,Vehicle Emissions,130.39,kWh,2020,East
+4,Air Quality,CO2 Emissions,319.53,ppm,2000,North
+5,Energy,CO2 Emissions,379.36,kWh,2017,South
+6,Water,Renewable Energy Percentage,75.53,liters,2022,East
+7,Energy,Water Usage,2.1,%,2007,Central
+8,Energy,Renewable Energy Percentage,23.8,ppm,2006,Central
+9,Water,CO2 Emissions,93.62,ppm,2011,West
+10,Waste,Vehicle Emissions,437.75,liters,2006,South
+11,Air Quality,CO2 Emissions,72.76,%,2000,North
+12,Energy,Energy Consumption,220.54,ppm,2008,West
+13,Water,Water Usage,,kWh,2018,Central
+14,Air Quality,Energy Consumption,,%,2002,South
+15,Air Quality,Energy Consumption,310.51,kWh,2019,North
+16,Water,Water Usage,error,kg,2014,East
+17,Air Quality,Energy Consumption,277.65,liters,2011,North
+18,Air Quality,CO2 Emissions,350.54,%,2009,North
+19,Air Quality,Energy Consumption,372.93,liters,2021,East
+20,Energy,CO2 Emissions,200.1,liters,2020,East
+21,Water,Renewable Energy Percentage,3.6,kg,2018,Central
+22,Waste,Energy Consumption,356.93,kWh,2011,Central
+23,Water,Recycling Rate,2.48,kg,2013,South
+24,Transportation,Water Usage,30.52,liters,2007,North
+25,Air Quality,Recycling Rate,67.95,%,2010,North
+26,Transportation,Water Usage,72.85,kg,2013,Unknown
+27,Air Quality,Vehicle Emissions,,liters,2011,West
+28,Waste,Renewable Energy Percentage,30.93,ppm,2010,West
+29,Water,Renewable Energy Percentage,56.91,ppm,2017,North
+30,Water,Renewable Energy Percentage,47.32,liters,2021,North
+31,Waste,Energy Consumption,412.95,liters,2000,North
+32,Water,PM2.5 Levels,36.34,ppm,2012,South
+33,Water,Energy Consumption,411.85,%,2014,North
+34,Air Quality,Renewable Energy Percentage,31.73,ppm,2019,Central
+35,Water,Vehicle Emissions,336.95,%,2015,South
+36,Water,Energy Consumption,,liters,2022,South
+37,Transportation,Recycling Rate,90.48,%,2022,North
+38,Transportation,Renewable Energy Percentage,74.75,%,2019,South
+39,Water,Vehicle Emissions,,liters,2019,Unknown
+40,Water,Vehicle Emissions,257.76,kWh,2008,West
+41,Transportation,Water Usage,,ppm,2000,Central
+42,Energy,Vehicle Emissions,63.96,liters,2006,North
+43,Waste,Vehicle Emissions,216.0,%,2019,North
+44,Transportation,Recycling Rate,94.15,liters,2002,Central
+45,Energy,Vehicle Emissions,492.73,kWh,2011,Central
+46,Energy,Recycling Rate,96.08,ppm,2022,South
+47,Transportation,Recycling Rate,43.56,%,2008,East
+48,Air Quality,PM2.5 Levels,22.05,kWh,2015,East
+49,Waste,Renewable Energy Percentage,1.02,liters,2002,South
+50,Energy,CO2 Emissions,182.41,ppm,2022,South
+51,Waste,Water Usage,70.29,kg,2009,East
+52,Water,Energy Consumption,382.37,kg,2018,Central
+53,Air Quality,Energy Consumption,173.44,kWh,2017,East
+54,Transportation,Recycling Rate,44.05,liters,2001,East
+55,Energy,Energy Consumption,117.14,%,2009,North
+56,Air Quality,Recycling Rate,45.05,ppm,2009,Central
+57,Water,PM2.5 Levels,error,kWh,2005,South
+58,Water,Water Usage,70.7,ppm,2002,South
+59,Air Quality,Energy Consumption,,kg,2004,North
+60,Transportation,CO2 Emissions,260.91,kg,2022,Unknown
+61,Waste,Renewable Energy Percentage,441.89,kWh,2007,Central
+62,Air Quality,PM2.5 Levels,24.9,kg,2005,Central
+63,Energy,Vehicle Emissions,122.37,ppm,2022,West
+64,Waste,CO2 Emissions,486.58,ppm,2016,North
+65,Transportation,Vehicle Emissions,73.23,kg,2017,South
+66,Water,PM2.5 Levels,12.13,%,2000,Central
+67,Water,Recycling Rate,93.27,kg,2016,East
+68,Air Quality,Renewable Energy Percentage,74.63,liters,Unknown,East
+69,Waste,Vehicle Emissions,314.12,ppm,2004,West
+70,Water,PM2.5 Levels,,ppm,2007,West
+71,Water,Recycling Rate,96.48,liters,Unknown,Central
+72,Water,Recycling Rate,87.09,liters,2002,West
+73,Air Quality,Recycling Rate,95.41,ppm,2017,North
+74,Energy,Vehicle Emissions,error,kWh,2014,South
+75,Water,Energy Consumption,289.02,%,2021,South
+76,Water,Energy Consumption,257.52,kg,2014,East
+77,Waste,Renewable Energy Percentage,29.92,ppm,2022,East
+78,Waste,Renewable Energy Percentage,29.59,kg,2000,Unknown
+79,Transportation,Vehicle Emissions,456.87,kg,2007,Central
+80,Water,PM2.5 Levels,,kWh,2009,West
+81,Transportation,Energy Consumption,140.36,%,2011,Central
+82,Waste,PM2.5 Levels,44.17,kWh,2014,North
+83,Air Quality,Water Usage,9.03,ppm,2000,East
+84,Waste,CO2 Emissions,353.68,ppm,2000,Central
+85,Waste,PM2.5 Levels,23.37,liters,2001,North
+86,Air Quality,Recycling Rate,58.73,liters,2013,North
+87,Transportation,Energy Consumption,434.95,kWh,2021,East
+88,Transportation,CO2 Emissions,348.25,%,2000,North
+89,Water,Renewable Energy Percentage,21.6,liters,2010,South
+90,Water,CO2 Emissions,347.48,kWh,2004,North
+91,Transportation,Renewable Energy Percentage,11.36,kWh,Unknown,West
+92,Air Quality,Water Usage,45.8,kWh,2001,West
+93,Waste,Renewable Energy Percentage,14.83,liters,2008,Central
+94,Air Quality,Recycling Rate,9.92,kWh,2020,Central
+95,Transportation,PM2.5 Levels,9.28,ppm,2010,East
+96,Energy,PM2.5 Levels,38.25,liters,2017,North
+97,Transportation,Vehicle Emissions,462.13,kWh,2009,Central
+98,Waste,Vehicle Emissions,300.32,kWh,2008,Central
+99,Air Quality,CO2 Emissions,324.05,kg,2000,South
+100,Transportation,CO2 Emissions,113.84,kWh,2002,Central
