@@ -1,0 +1,97 @@
+{% load static %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<title>AI-Hobbyist</title>
+
+<div class="container mt-4">
+    {% if error %}
+    <p style="color: red;">{{ error }}</p>
+    {% endif %}
+
+    {% if articles and not word_count and not problem_statement %}
+    <form method="POST">
+        {% csrf_token %}
+        <div class="row">
+            {% for article in articles %}
+            <div class="col-md-4 mb-3">
+                <div class="card h-100" style="margin-bottom: 10px; padding: 10px; border-left: 5px solid #388e3c;">
+                    <div class="card-body">
+                        <h5 style="text-align: justify;" class="card-title">{{ article.0 }}</h5>
+                        <p style="text-align: justify;" class="card-text">{{ article.1 }}</p>
+                        <input type="radio" name="article_index" value="{{ forloop.counter0 }}"
+                            id="article_{{ forloop.counter0 }}" required>
+                        <label for="article_{{ forloop.counter0 }}" style="cursor: pointer;">Select</label>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-3">
+            <input type="submit" class="btn btn-primary" value="Generate Word Cloud">
+        </div>
+    </form>
+    {% endif %}
+
+    {% if word_count and not problem_statement %}
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-section">
+            <p><strong>Your Chosen Article:</strong> <em>{{ selected_article }}</em></p>
+        </div>
+        <br />
+        <div class="form-section">
+            <p><strong>Pick the Words That Inspire You to Craft a Problem Statement:</strong></p>
+            <div class="word-selection">
+                {% for word, count in word_count.items %}
+                <div class="form-check d-inline-block mr-3">
+                    <input type="checkbox" class="form-check-input" name="selected_words" value="{{ word }}"
+                        id="word_{{ forloop.counter0 }}">
+                    <label class="form-check-label" for="word_{{ forloop.counter0 }}">{{ word }}</label>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <br />
+        <div class="form-section">
+            <p><strong>Choose How You'd Like to Approach This Task:</strong></p>
+            <label class="radio-inline">
+                <input type="radio" name="task" value="classify" required> Let’s Classify It Together...
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="task" value="regress" required> Or, How About Regress and Predict...
+            </label>
+        </div>
+        <br />
+        <div class="form-section">
+            <p><strong>How Would You Like to Create Your Statement?</strong></p>
+            <label class="radio-inline">
+                <input type="radio" name="ps_choice" value="nlg" required> Classic (Normal NLG)
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="ps_choice" value="ai" required> AI Magic (AI-Generated)
+            </label>
+        </div>
+
+        <div class="form-section text-center">
+            <input type="submit" class="btn btn-primary" value="Let’s Generate Your Problem Statement">
+        </div>
+    </form>
+    {% endif %}
+
+
+    {% if problem_statement %}
+    <div class="alert alert-success mt-4">
+        <p><strong>Your Problem Statement:</strong></p>
+        <pre>{{ problem_statement }}</pre>
+    </div>
+    <div class="alert alert-warning">
+        <p><strong>Note:</strong> The generated problem statement is based on the selected data and may not always be
+            accurate or reliable. Please select appropriate words, verify and refine as needed.</p>
+    </div>
+    <div class="mt-4">
+        <a href="{% url 'eda' %}" class="btn btn-secondary">Ready to uncover insights? Perform EDA now!</a>
+    </div>
+    {% endif %}
+    <a href="{% url 'index' %}">Not ready yet? Head back to brainstorm!</a>
+    <br />
+    <br />
+</div>

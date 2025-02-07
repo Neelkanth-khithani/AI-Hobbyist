@@ -1,0 +1,259 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>AI-Hobbyist</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.net/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <style>
+        .dataset-preview {
+            max-height: 300px;
+            overflow-y: auto;
+            background: #fff;
+            padding: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-4">
+        <div class="container-fluid mt-3">
+            <div class="row">
+                <!-- Left side - EDA Process -->
+                <div class="col-md-6">
+                    <b style="text-align: justify; font-size: 18px; color: #1e90ff;">
+                        Dear Hobbyist, welcome to the fascinating world of Exploratory Data Analysis (EDA)!
+                    </b><br /><br />
+
+                    {% if dataset is None %}
+                    <p style="text-align: justify; color: red; font-weight: bold;">*The EDA page is still to be updated...</p>
+                    <b>Here are some sample datasets you can copy and paste into the input field:</b>
+
+                    <div class="dataset-preview">
+                        <b>Dataset 1:</b><br>
+                        <pre>
+ID,Color,Shape,Material,Purchased
+1,Red,Circle,Cotton,Yes
+2,Blue,Square,Polyester,No
+3,Green,Triangle,Wool,Yes
+4,Yellow,Circle,Silk,No
+5,Black,Square,Leather,Yes
+6,White,Triangle,Cotton,No
+7,Orange,Circle,Polyester,Yes
+8,Purple,Square,Leather,No
+9,Pink,Triangle,Silk,Yes
+10,Brown,Circle,Wool,No
+    </pre>
+
+                        <b>Dataset 2:</b><br>
+                        <pre>
+ID,Weight,Size,Material,Price
+1,1.2,Small,Cotton,25.50
+2,0.8,Medium,Polyester,20.00
+3,1.5,Large,Wool,35.75
+4,2.0,Medium,Silk,50.00
+5,0.6,Small,Leather,15.00
+6,1.8,Large,Cotton,40.25
+7,0.7,Small,Polyester,18.50
+8,1.6,Medium,Wool,30.00
+9,2.2,Large,Leather,60.00
+10,1.0,Small,Silk,22.50
+    </pre>
+
+                        <b>Dataset 3:</b><br>
+                        <pre>
+ID,Name,Age,Salary,Experience,Target
+1,John Doe,25,50000,2,Yes
+2,Jane Smith,,62000,5,No
+3,Emily Davis,40,78000,10,Yes
+4,Michael Brown,29,,7,No
+5,Sarah Wilson,35,56000,8,Yes
+6,Chris Johnson,22,45000,,No
+7,Jessica Lee,28,54000,3,Yes
+8,,30,70000,5,Yes
+9,David Clark,50,90000,,No
+10,Ashley Garcia,27,48000,3,Yes
+    </pre>
+
+                        <b>Dataset 4:</b><br>
+                        <pre>
+SepalLength,SepalWidth,PetalLength,PetalWidth,Species
+5.1,3.5,1.4,0.2,setosa
+4.9,3.0,1.4,0.2,setosa
+4.7,3.2,1.3,,setosa
+4.6,3.1,1.5,0.2,setosa
+,,1.4,0.2,setosa
+5.0,3.6,1.4,0.2,setosa
+5.4,3.9,1.7,0.4,setosa
+4.6,3.4,1.4,0.3,setosa
+5.0,3.4,1.5,0.2,setosa
+5.4,3.7,1.5,0.2,setosa
+4.8,3.4,1.6,0.2,setosa
+5.0,3.4,1.6,0.2,versicolor
+5.1,3.5,1.4,0.2,versicolor
+4.9,3.0,1.4,0.2,versicolor
+5.2,3.4,1.4,0.2,versicolor
+5.5,3.5,1.3,0.2,versicolor
+5.0,3.5,1.6,0.6,versicolor
+5.1,3.8,1.6,0.2,versicolor
+5.3,3.7,1.5,0.2,versicolor
+5.0,3.4,1.6,0.4,versicolor
+6.7,3.1,4.7,1.5,virginica
+6.3,3.3,4.7,1.6,virginica
+6.5,3.0,5.2,2.0,virginica
+6.6,3.0,4.4,1.4,virginica
+6.4,3.2,4.5,1.5,virginica
+6.8,3.0,5.1,2.3,virginica
+5.7,3.0,4.2,1.2,virginica
+5.6,3.0,4.5,1.5,virginica
+5.8,2.7,4.1,1.0,virginica
+6.0,2.9,4.5,1.5,virginica
+6.1,2.8,4.7,1.2,virginica
+    </pre>
+                    </div>
+
+                    <!-- Understanding Your Dataset Section -->
+                    <div style="text-align: justify;">
+                        <b style="text-align: justify; font-size: 18px; color: #1e90ff;">Understanding Your Dataset</b>
+                        <p>
+                            Before you start exploring your data, let’s break down some key terms that will help you
+                            make sense of what you're working with.
+                        </p>
+
+                        <b>1. What is a Dataset?</b>
+                        <p>
+                            A <b>dataset</b> is like a table filled with information. Each row in the table represents
+                            an individual <b>record</b> or <b>observation</b> (like a person, product, or event),
+                            and each column represents a <b>feature</b> or <b>attribute</b> (such as color, weight, or
+                            price).
+                        </p>
+
+                        <b>2. Headers: The Names of Your Columns</b>
+                        <p>
+                            The <b>header</b> is the first row in your dataset. It contains the names of the columns,
+                            also called <b>feature names</b>.
+                            These names tell you what kind of information is stored in each column. For example:
+                        </p>
+
+                        <div class="dataset-preview">
+                            <pre>
+ID, Name, Age, Salary
+1, John Doe, 28, 50000
+2, Jane Smith, 34, 62000
+        </pre>
+                        </div>
+                        <p>
+                            Here, <code>ID</code>, <code>Name</code>, <code>Age</code>, and <code>Salary</code> are the
+                            headers.
+                        </p>
+
+                        <b>3. Features: The Details About Each Record</b>
+                        <p>
+                            A <b>feature</b> is a specific characteristic of your data. For example, in a dataset about
+                            people:
+                        </p>
+                        <ul>
+                            <li><b>Name</b> could be a feature representing the person's name.</li>
+                            <li><b>Age</b> is a feature showing how old the person is.</li>
+                            <li><b>Salary</b> represents the person's income.</li>
+                        </ul>
+
+                        <b>4. Target Variable: What Are You Trying to Predict?</b>
+                        <p>
+                            In supervised learning, we often have a <b>target variable</b>—the thing we're trying to
+                            predict or understand.
+                            For example, in a dataset where you want to predict if someone will buy a product, the
+                            <b>Purchased</b> column (with values like <code>Yes</code> or <code>No</code>) would be your
+                            target.
+                        </p>
+                    </div>
+
+                    {% endif %}
+
+                    {% if dataset is not None %}
+                    {% include 'eda_perform.html' %}
+                    {% endif %}
+                </div>
+
+                <!-- Right side - Dataset form or table -->
+                <div class="col-md-6">
+                    {% if dataset is None %}
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="dataset"><b>Paste your dataset here for supervised learning:</b></label>
+                            <textarea id="dataset" name="dataset" class="form-control" rows="10"
+                                required>{{ request.POST.dataset }}</textarea>
+                        </div>
+                        <div class="form-group mt-2">
+                            <label for="target_column"><b>Enter the target column name:</b></label>
+                            <input type="text" id="target_column" name="target_column" class="form-control"
+                                autocomplete="off" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-2">Submit</button>
+                    </form>
+                    {% if error %}
+                    <p class="text-danger mt-2">{{ error }}</p>
+                    {% endif %}
+                    {% else %}
+                    <!-- Display Column Names and Data Types as a Row -->
+                    <div
+                        style="max-height: 600px; overflow-y: auto; background: #fff; padding: 15px; border: 1px solid #ddd;">
+                        <table class="table table-bordered" id="dataset-table" style="width: 100%;">
+                            <thead style="background-color: #1e90ff;">
+                                <tr>
+                                    {% for col, dtype in data_types %}
+                                    <th style="background-color: #1e90ff; color: #fff;"><b>dtype:</b> {{ dtype }}</th>
+                                    {% endfor %}
+                                </tr>
+                                <tr>
+                                    {% for col, dtype in data_types %}
+                                    <th style="background-color: #1e90ff; color: #fff;">{{ col }}</th>
+                                    {% endfor %}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for index, row in dataset.iterrows %}
+                                <tr>
+                                    {% for value in row %}
+                                    <td>{{ value }}</td>
+                                    {% endfor %}
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <button class="btn btn-success" onclick="downloadCSV()">Download Dataset</button>
+                    <a href="{% url 'model' %}" class="btn btn-secondary">Ready to train model?</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function downloadCSV() {
+            var table = document.getElementById('dataset-table');
+            var rows = table.rows;
+            var csv = [];
+
+            for (var i = 0; i < rows.length; i++) {
+                var row = rows[i];
+                var rowData = [];
+                for (var j = 0; j < row.cells.length; j++) {
+                    rowData.push('"' + row.cells[j].innerText.replace(/"/g, '""') + '"');
+                }
+                csv.push(rowData.join(','));
+            }
+
+            var csvFile = new Blob([csv.join('\n')], { type: 'text/csv' });
+
+            saveAs(csvFile, 'your-dataset.csv');
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,73 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'style.css' %}" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<title>AI-Hobbyist</title>
+
+<body>
+    <div class="container mt-4">
+        {% if error %}
+        <p style="color: red;">{{ error }}</p>
+        {% endif %}
+
+        <p style="text-align: justify;"><b>Dear Hobbyist</b>, welcome to the world of endless creativity! Here, we take your
+            challenges, ideas, and observations and
+            transform them into impactful problem statements that spark innovation. Whether you're exploring real-world
+            sustainability issues, crafting solutions for the future, or simply letting your imagination soar, we're
+            here to
+            guide you every step of the way. Dive in, experiment, and watch as your ideas evolve into something
+            extraordinary.
+            Let’s turn your vision into action—one problem statement at a time!</p>
+
+        <p>How would you like to spark your imagination today?</p>
+
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <div class="card h-100" style="border-left: 5px solid #1976d2;">
+                    <div class="card-body">
+                        <h5 class="card-title">Ambitious?</h5>
+                        <p class="card-text">Spin a tale—every great idea starts with a concern story!</p>
+                        <a href="{% url 'story' %}" class="btn btn-primary">Start Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card h-100" style="border-left: 5px solid #4caf50;">
+                    <div class="card-body">
+                        <h5 class="card-title">Lazy?</h5>
+                        <p class="card-text">Catch the buzz—let the latest news inspire you!</p>
+                        <a href="{% url 'news' %}" class="btn btn-primary">Get Inspired</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card h-100" style="border-left: 5px solid #9c27b0;">
+                    <div class="card-body">
+                        <h5 class="card-title">Love a document?</h5>
+                        <p class="card-text">Bring your pdf notes to life—upload a document!</p>
+                        <a href="{% url 'document' %}" class="btn btn-primary">Upload Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card h-100" style="border-left: 5px solid #f44336;">
+                    <div class="card-body">
+                        <h5 class="card-title">Is Your Dataset Unrefined?</h5>
+                        <p class="card-text">Automated Data Cleaning with Insights—upload your dataset and learn the theory behind it!</p>
+                        <a href="{% url 'eda' %}" class="btn btn-primary">Clean Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card h-100" style="border-left: 5px solid #f44336;">
+                    <div class="card-body">
+                        <h5 class="card-title">Dataset ready for supervised learning?</h5>
+                        <p class="card-text">Automated Data Training with Insights—upload your dataset and get the results!</p>
+                        <a href="{% url 'model' %}" class="btn btn-primary">Train Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

@@ -1,0 +1,56 @@
+{% load static %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<title>AI-Hobbyist</title>
+
+<div class="container mt-4">
+    {% if error %}
+    <p style="color: red;">{{ error }}</p>
+    {% endif %}
+
+    {% if not word_count and not problem_statement %}
+    <form method="POST">
+        {% csrf_token %}
+        <p>Got thoughts brewing? Share the words, problems, or challenges, and let's turn them into a problem statement!
+        </p>
+        <textarea name="story" rows="4" cols="50"></textarea><br>
+        <input type="submit" value="Submit Story">
+    </form>
+    <p><a href="{% url 'story' %}">Not ready yet? Head back to write your story!</a></p>
+    {% endif %}
+
+    {% if word_count %}
+    <form method="POST">
+        {% csrf_token %}
+        <p><b>Choose the perfect words to bring your problem statement to life:</b></p>
+        {% for word, count in word_count.items %}
+        <input type="checkbox" name="selected_words" value="{{ word }}">
+        {{ word }}
+        {% endfor %}
+        <br /><br />
+        <p><b>Pick your style! How would you like your problem statement to kick off?</b></p>
+        <input type="radio" name="task" value="classify" required> Let's Classify It...
+        <input type="radio" name="task" value="regress" required> Let's Regress and Predict...
+        <br /><br />
+        <p><b>Preferred way to craft your problem statement:</b></p>
+        <input type="radio" name="ps_choice" value="nlg" required> Classic (Normal NLG)
+        <input type="radio" name="ps_choice" value="ai" required> AI Magic (AI-Generated)
+        <br /><br />
+        <input type="submit" class="btn btn-primary" value="Generate Problem Statement">
+    </form>
+    {% endif %}
+
+    {% if problem_statement %}
+    <div class="alert alert-success mt-4">
+        <p><strong>Your Problem Statement:</strong></p>
+        <pre>{{ problem_statement }}</pre>
+    </div>
+    <div class="alert alert-warning">
+        <p><strong>Note:</strong> The generated problem statement is based on the selected data and may not always be
+            accurate or reliable. Please verify and refine as needed.</p>
+    </div>
+    <div class="mt-4">
+        <a href="{% url 'eda' %}" class="btn btn-secondary">Ready to uncover insights? Perform EDA now!</a>
+    </div>
+    {% endif %}
+    <a href="{% url 'index' %}">Not ready yet? Head back to brainstorm!</a>
+</div>

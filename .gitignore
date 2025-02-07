@@ -1,0 +1,29 @@
+# Python & Django
+*.log
+*.pot
+*.pyc
+*.pyo
+*.swp
+__pycache__/
+db.sqlite3
+
+# Virtual Environments & Config
+venv/
+.env
+.env/
+*.env
+
+# IDE Specific
+.vscode/
+.idea/
+
+# Testing
+.pytest_cache/
+
+# Sensitive Files
+myproject\package\idea\config.py
+
+# Large Model Files
+myproject/models/**/*.safetensors
+myproject/models/**/*.h5
+myproject/models/**/*.pt

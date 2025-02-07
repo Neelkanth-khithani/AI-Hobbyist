@@ -1,0 +1,156 @@
+<div class="alert alert-warning" role="alert" style="text-align: justify; background-color: #ffeb3b; color: #000;">
+    <b style="color: #d32f2f;">Warning:</b> The dataset might still have some hidden issues or uncleaned data, even after cleaning. Please take a moment to review it carefully before proceeding with any further analysis.
+</div>
+
+<form method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+
+        <details>
+            <summary style="font-weight: bold; color: #4caf50;">Curious about handling Contiguous Columns and Missing Values?</summary>
+            <p style="text-align: justify; color: #607d8b;">
+                Contiguous columns like 'ID' and columns with missing values are often removed during data preprocessing. This step ensures that irrelevant or incomplete data, such as unique identifiers or empty fields, do not interfere with our dataset analysis and modeling processes.
+            </p>
+            <p style="text-align: justify; color: #607d8b;">
+                Handling missing values is crucial to ensure the accuracy and integrity of our analysis. Failing to address these missing values can lead to misleading results or biased insights. Let’s make sure our data is pristine by following these strategies:
+            </p>
+            <ul style="text-align: justify; color: #3f51b5;">
+                <li><strong style="color: #ff5722;">For Categorical Columns:</strong> Fill missing values with the mode (most frequent value).</li>
+                <li><strong style="color: #ff5722;">For Numerical Columns:</strong>
+                    <ul>
+                        <li style="color: #673ab7;">If skewness > 1, fill with median (less sensitive to outliers).</li>
+                        <li style="color: #673ab7;">If skewness ≤ 1, fill with mean (better reflects the central tendency).</li>
+                    </ul>
+                </li>
+            </ul>
+        </details>
+
+        <b style="text-align: justify; color: #2196f3;">Here are the columns with missing values removed:</b>
+
+        {% for col, data in missing_data_summary.items %}
+        <div class="card" style="margin-bottom: 10px; padding: 10px; background-color: #f0f4c3; border-left: 5px solid #388e3c;">
+            <b>{{ col }}:</b>
+            {% if data.null_values == 0 %}
+            <span class="text-success" style="font-weight: bold;">No missing values after handling.</span>
+            {% else %}
+            <span class="text-danger" style="font-weight: bold;">Missing values still present.</span>
+            {% endif %}
+            <span class="text-info">{{ data.note }}</span>
+        </div>
+        {% endfor %}
+    </div>
+</form>
+
+{% if show_categorical %}
+<div class="form-group">
+    <details>
+        <summary style="font-weight: bold; color: #ff9800;">How do we handle Categorical Data?</summary>
+        <p style="text-align: justify; color: #607d8b;">
+            Categorical data needs to be converted into numerical values for machine learning models. Let’s explore how we handle different types of categorical variables:
+        </p>
+        <ul style="text-align: justify; color: #3f51b5;">
+            <li><strong style="color: #ff5722;">For columns with 3 or fewer unique values:</strong> We use one-hot encoding to create binary columns.</li>
+            <li><strong style="color: #ff5722;">For columns with more than 3 unique values:</strong> We apply label encoding to convert categories into numerical values.</li>
+            <li><strong style="color: #ff5722;">For the target column:</strong> We use label encoding for consistency and accuracy.</li>
+        </ul>
+    </details>
+
+    <b style="text-align: justify; color: #2196f3;">These columns have been successfully encoded:</b>
+
+    {% for col, data in categorical_summary.items %}
+    <div class="card" style="margin-bottom: 10px; padding: 10px; background-color: #e8f5e9; border-left: 5px solid #388e3c;">
+        <b>{{ col }}:</b>
+        Number of unique values: <span style="color: #9c27b0;">{{ data.unique_values }}</span><br>
+        Unique values: <span style="color: #9c27b0;">{{ data.unique_items|join:", " }}</span><br>
+        Encoding method used: <span style="color: #9c27b0;">{{ data.encoding_method }}</span><br>
+        <span class="text-info">{{ data.note }}</span>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+{% if no_outliers_detected %}
+<div class="form-group">
+    <details>
+        <summary style="font-weight: bold; color: #f44336;">Outlier Handling - Why Is It So Important?</summary>
+        <p style="text-align: justify; color: #607d8b;">
+            Outliers can skew our data and negatively affect model performance. Let’s walk through the methods we use to handle them:
+        </p>
+        <ul style="text-align: justify; color: #3f51b5;">
+            <li><strong style="color: #ff5722;">Z-Score Method:</strong> It uses standard deviations to detect anomalies. This method is applied when data skewness is ≤ 0.5 (in absolute value).</li>
+            <li><strong style="color: #ff5722;">IQR Method:</strong> This method identifies outliers beyond the interquartile range, typically used when skewness > 0.5 (in absolute value).</li>
+        </ul>
+    </details>
+    <div class="alert alert-info" role="alert" style="text-align: justify; background-color: #bbdefb; color: #0d47a1;">
+        <b>Note:</b> No outliers were detected in the dataset. This suggests the data is clean, but please ensure other preprocessing steps are complete.
+    </div>
+</div>
+{% endif %}
+
+{% if outlier_visualizations %}
+<div class="form-group">
+    <details>
+        <summary style="font-weight: bold; color: #f44336;">Outlier Handling - Why Is It So Important?</summary>
+        <p style="text-align: justify; color: #607d8b;">
+            Outliers can skew our data and negatively affect model performance. Let’s walk through the methods we use to handle them:
+        </p>
+        <ul style="text-align: justify; color: #3f51b5;">
+            <li><strong style="color: #ff5722;">Z-Score Method:</strong> It uses standard deviations to detect anomalies. This method is applied when data skewness is ≤ 0.5 (in absolute value).</li>
+            <li><strong style="color: #ff5722;">IQR Method:</strong> This method identifies outliers beyond the interquartile range, typically used when skewness > 0.5 (in absolute value).</li>
+        </ul>
+    </details>
+
+    <b style="text-align: justify; color: #2196f3;">These columns had detected outliers:</b>
+    {% for col, details in outlier_visualizations.items %}
+    <div class="card" style="margin-bottom: 10px; padding: 10px; background-color: #fce4ec; border-left: 5px solid #d81b60;">
+        <b>{{ col }}:</b>
+        Outlier detection method used: <span style="color: #9c27b0;">{{ details.method }}</span><br>
+        Number of outliers removed: <span style="color: #9c27b0;">{{ details.outliers_removed }}</span><br>
+        <img src="{{ details.image_path }}" alt="Outliers in {{ col }}" style="width: 100%; height: auto; border-radius: 10px;">
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+{% if no_scaling_required %}
+<div class="form-group">
+    <details>
+        <summary style="font-weight: bold; color: #4caf50;">Scaling - Why It Matters?</summary>
+        <p style="text-align: justify; color: #607d8b;">
+            Scaling the data adjusts feature ranges and improves the performance of our machine learning models. Here’s how we decide on the appropriate scaling technique:
+        </p>
+        <ul style="text-align: justify; color: #3f51b5;">
+            <li><strong style="color: #ff5722;">StandardScaler (Z-Score):</strong> Applied when the data range is large, centering it around zero with unit variance.</li>
+            <li><strong style="color: #ff5722;">Min-Max Scaler:</strong> Used when the data range is small, transforming the features into the range [0, 1].</li>
+        </ul>
+    </details>
+    <div class="alert alert-info" role="alert" style="text-align: justify; background-color: #bbdefb; color: #0d47a1;">
+        <b>Note:</b> In this dataset, no scaling was required as all columns are already within an optimal range.
+    </div>
+</div>
+{% endif %}
+
+{% if scaling_details %}
+<div class="form-group">
+    <details>
+        <summary style="font-weight: bold; color: #4caf50;">Scaling - Adjusting for Optimal Model Performance</summary>
+        <p style="text-align: justify; color: #607d8b;">
+            Scaling ensures that our features are in the right range to optimize model performance. Here's how we handled it:
+        </p>
+        <ul style="text-align: justify; color: #3f51b5;">
+            <li><strong style="color: #ff5722;">StandardScaler (Z-Score):</strong> Used when the data range is large, ensuring the data is centered around zero with unit variance.</li>
+            <li><strong style="color: #ff5722;">Min-Max Scaler:</strong> Applied when the data has a narrow range, scaling it between [0, 1].</li>
+        </ul>
+    </details>
+
+    <b style="text-align: justify; color: #2196f3;">These columns were scaled:</b>
+
+    {% for col, details in scaling_details.items %}
+    <div class="card" style="margin-bottom: 10px; padding: 10px; background-color: #e3f2fd; border-left: 5px solid #1976d2;">
+        <b>{{ col }}:</b>
+        Scaling method used: <span style="color: #9c27b0;">{{ details.scaling_method }}</span><br>
+        Range of the column: <span style="color: #9c27b0;">{{ details.range }}</span><br>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
